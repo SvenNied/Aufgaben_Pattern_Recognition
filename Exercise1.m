@@ -1,72 +1,93 @@
 #Exercise 1
-#Defining A
-A = 10 * rand(100,100);
-for i= 1 : 100
-  for j= 1 : 100
-    A(i,j) = fix(A(i,j));
-  end
- end
-A;
-#Defining B, if X standard nornal distributed then kX has variance k^2 if k is constant
-B = 10 * randn(100,100);
-for i= 1 : 100
-  for j= 1 : 100
-    B(i,j) = round(B(i,j));
-  end
- end
-B;
+N=4;
 
-#Finding min and max
-amin = min(A(1));
-for j= 2 : 100
-    if(amin > min(A(j)))
-        amin = min(A(j));
-    endif
-end
+#(a)Defining A and B
+#We use fix() for A to obtain an integer because we want to stay in the interval (0,10]
+#so witth 0 as possible value, but not 10 as possible value.
+A = fix(10 * rand(N,N));
+#We use round() for B to obtain an integer in order to keep it a normal distribution
+B = round(10*randn(N,N));
+A
+B
 
-amax =  max(A(1));
-for j= 2 : 100
-    if(amin < max(A(j)))
-        amin = max(A(j));
-    endif
-end
+#(b)Defining min and max for A and B
+amin=min(min(A));
+amax=max(max(A));
+bmin=min(min(B));
+bmax=max(max(B));
 
-bmin = min(B(1));
-for j= 2 : 100
-    if(amin > min(B(j)))
-        amin = min(B(j));
-    endif
-end
+amin,amax,bmin,bmax
 
-bmax = max(B(1));
-for j= 2 : 100
-    if(amax > max(B(j)))
-        amax = max(B(j));
-    endif
-end
+#(c)Determining the frequency of each matrix element
+a=[];
+for i=0 : 9
+  a_help=sum(sum(A==i));
+    a=[a,a_help];
+endfor;
 
-#Determining frequency of elements
-#The list for A
-#Create matrix new where every value is 1 where the searched value is to find.
-#Then use the function find to find all ones and take the length of that vector
-for i = 1 : 10
-    newA = A == i-1;
-    a(i) = length(find(newA));
-endfor
-a;
+b=[];
+for i=bmin : bmax
+  b_help=sum(sum(B==i));
+  b=[b,b_help];
+endfor;
 
-#The list for B. Its the same principle as above
-b = [0 0 0 0];
-for i = 1 : 100
-    newB = B == -50 + i;
-    b(i) = length(find(newB));
-endfor
-b:
 
-#Plotting the distributions
-#For A
 
-#For B
+#(d) and (e)Plotting the histograms
+a_mean= mean(a);
+a_c= 0:9;
+b_c=bmin:bmax;
+
+figure(1);
+bar(a_c,a)
+  title('Graph A');
+  axis([-1, 10, 0, max(a)+1]);
+  xlabel ('matrix element');
+  ylabel('frequency in A');
+  hold on;
+  plot([-1, 10],line([-1,10],[a_mean,a_mean]))
+  hold off;
+
+figure(2);
+bar (b_c,b)
+  title('Graph B');
+  axis([bmin-1, bmax+1, 0, max(b)+1]);
+  xlabel ('matrix element');
+  ylabel('frequency in B');
+
+
+#(f)Probability distributions
+
+p_a=[];
+for i=1 : length(a)
+  a_help=a(i)/(N*N);
+  p_a=[p_a,a_help];
+endfor;
+
+p_b=[];
+for i=1 : length(b)
+  b_help=b(i)/(N*N);
+  p_b=[p_b,b_help];
+endfor;
+
+
+figure(3);
+plot(a_c,p_a,"+")
+  title('probability distributions for Graph A');
+  axis([-1, 10, 0, 1]);
+  xlabel ('matrix element');
+  ylabel('probability');
+
+Sum_a=sum(p_a)
+
+figure(4);
+plot(b_c,p_b,"+")
+  title('probability distributions for Graph B');
+  axis([bmin-1, bmax+1, 0, 1]);
+  xlabel ('matrix element');
+  ylabel('probability');
+
+Sum_b=sum(p_b)
 
 
 
