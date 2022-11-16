@@ -81,7 +81,7 @@ plot(a_c,p_a,"+")
 
 # For plotting the graph for (g)
 values_x=[bmin:0.1:bmax];
-values_y= (1/(200*pi)*exp(-(((values_x).^2 )/200)));
+values_y= (1/sqrt(200*pi)*exp(-(((values_x).^2 )/200)));
 
 
 figure(4);
