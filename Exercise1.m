@@ -1,5 +1,5 @@
 #Exercise 1
-N=4;
+N=100;
 
 #(a)Defining A and B
 #We use fix() for A to obtain an integer because we want to stay in the interval (0,10]
@@ -41,7 +41,7 @@ b_c=bmin:bmax;
 figure(1);
 bar(a_c,a)
   title('Graph A');
-  axis([-1, 10, 0, max(a)+1]);
+  axis([-1, 10, min(a)-10, max(a)+10]);
   xlabel ('matrix element');
   ylabel('frequency in A');
   hold on;
@@ -51,12 +51,12 @@ bar(a_c,a)
 figure(2);
 bar (b_c,b)
   title('Graph B');
-  axis([bmin-1, bmax+1, 0, max(b)+1]);
+  axis([bmin-1, bmax+1, 0, max(b)+10]);
   xlabel ('matrix element');
   ylabel('frequency in B');
 
 
-#(f)Probability distributions
+#(f) and (g) Probability distributions
 
 p_a=[];
 for i=1 : length(a)
@@ -74,20 +74,54 @@ endfor;
 figure(3);
 plot(a_c,p_a,"+")
   title('probability distributions for Graph A');
-  axis([-1, 10, 0, 1]);
+  axis([-1, 10, 0, 0.2]);
   xlabel ('matrix element');
   ylabel('probability');
 
-Sum_a=sum(p_a)
+
+# For plotting the graph for (g)
+values_x=[bmin:0.1:bmax];
+values_y= (1/(200*pi)*exp(-(((values_x).^2 )/200)));
+
 
 figure(4);
 plot(b_c,p_b,"+")
   title('probability distributions for Graph B');
-  axis([bmin-1, bmax+1, 0, 1]);
+  axis([bmin-1, bmax+1, 0, 0.06]);
   xlabel ('matrix element');
   ylabel('probability');
-
+  hold on;
+  plot(values_x,values_y)
+  hold off;
+  
+#Sum of the  probabilities in distribution a and b:
+Sum_a=sum(p_a)
 Sum_b=sum(p_b)
+
+
+#(h)
+
+sum_omega1= 0;
+for i= -10 : 10
+  sum_omega1=sum_omega1+ sum(sum(B==i));
+endfor;
+sum_omega1=(sum_omega1*100)/(N*N)
+
+sum_omega2= 0;
+for i= -20 : 20
+  sum_omega2=sum_omega2+ sum(sum(B==i));
+endfor;
+sum_omega2=(sum_omega2*100)/(N*N)
+
+sum_omega3= 0;
+for i= -30 : 30
+  sum_omega3=sum_omega3+ sum(sum(B==i));
+endfor;
+sum_omega3=(sum_omega3*100)/(N*N)
+
+
+
+
 
 
 
