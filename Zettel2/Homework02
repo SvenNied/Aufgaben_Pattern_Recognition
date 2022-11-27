@@ -4,15 +4,15 @@
 load("digit0.mat")
 
 function show_data(im_num)
-for j= 0:9
-    s=strcat("digit",int2str(j),".mat");
-    load	(s)
-for	i	=	1:im_num
-			 I	= D(i,:);
-  		 I	=	reshape(I,	[28,28]); %	converts I	to	size to	28	x	28
-       I=imrotate(I,270);
-			 figure(1), imshow(fliplr(I),[]);
-			 pause(0.1);
-end
-end
+	for j= 0:9
+	    s=strcat("digit",int2str(j),".mat");
+	    load(s)
+		for i = 1:im_num
+		    I = D(i,:);
+		    I = reshape(I, [28,28]); % converts I to size to 28 x 28
+		    I=imrotate(I,270);
+		    figure(1), imshow(fliplr(I),[]);
+		    pause(0.1);
+		end
+	end
 endfunction
