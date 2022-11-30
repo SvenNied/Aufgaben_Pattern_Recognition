@@ -16,7 +16,7 @@ for j = 1:10
 	for im_num= 1: s_D
 	     I = D(im_num,:);
 	     i=I(p)+1;
-	     M(i)=M(i)+1;	% M(i) counts the number of images with value i at pixel p
+	     M(i)=M(i)+1;	% M(i) counts the number of images with value i-1 at pixel p
 	end
 
 	P = reshape(P, [28,28]); % converts P to size to 28 x 28
