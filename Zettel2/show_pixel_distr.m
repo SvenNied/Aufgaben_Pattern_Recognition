@@ -30,6 +30,6 @@ for j = 1:10
 	axis([-5, 260, 0, 400]);
 	xlabel ('grey value');
 	y = strcat("amount of pixels ", int2str(p) , " to have the greyvalue");
-	ylabel('amount of pixels 297 to have the greyvalue');
+	ylabel(y);
 k = k+2
 end
