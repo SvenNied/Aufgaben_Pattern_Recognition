@@ -4,9 +4,9 @@ function show_joint_probs(min, max, digit)
   s = strcat("digit",int2str(digit),".mat");
 	load(s)
   sized = 0;
-  for	i	=	1:size(D,1)
-				 I	=	D(i,:);
-				 I	=	reshape(I,	[28,28]); %	converts I	to	size to	28	x	28
+  for i = 1:size(D,1)
+	I = D(i,:);
+	I = reshape(I, [28,28]); %converts I to	size to	28 x28
          I  = imrotate(I,270);
          I  = fliplr(I);
          sized = sized + 1;
