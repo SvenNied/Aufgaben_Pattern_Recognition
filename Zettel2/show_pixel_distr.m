@@ -6,10 +6,9 @@ k = 1;
 m_x = 0:255;
 
 # Interesting Pixel
-Pixel = [297,155]; 
+Pixel = [155,297,405,604,188, 467,550,633,380,212]; 
 
-#Edit to j=1:10 once list Pixel is completed
-for j = 1:2
+for j = 1:10
 	p = Pixel(j);
 	M = zeros(1,256);
 	P = zeros(1,784);
@@ -31,5 +30,5 @@ for j = 1:2
 	axis([-5, 260, 0, 400]);
 	xlabel ('grey value');
 	ylabel('amount of pixels 297 to have the greyvalue');
-k = k+2
+k = k+2;
 end
