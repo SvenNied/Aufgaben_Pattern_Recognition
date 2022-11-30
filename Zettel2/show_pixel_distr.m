@@ -5,7 +5,7 @@ s_D = size(D,1);	% number of images
 k = 1;			% index of the figures
 m_x = 0:255;
 
-Pixel = [297,155,203,210,217,399,410,595,605]; % 10 interesting pixel
+Pixel = [297,155,203,210,217,399,410,595,605,715]; % 10 interesting pixel
 
 for j = 1:10
 	p = Pixel(j);		
