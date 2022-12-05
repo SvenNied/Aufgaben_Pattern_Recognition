@@ -74,6 +74,11 @@ setosa	=	reshape([iris1{2:51,	2:5,	1}],	50,	4);
 versicolor=	reshape([iris1{2:51,	2:5,	2}],	50,	4);
 virginica	=	reshape([iris1{2:51,	2:5,	3}],	50,	4);
 
+%Task 6
+plot(c_1(:,1),c_1(:,2),"bo", c_2(:,1),c_2(:,2),"r*")
+  title('Sepal Length vs Sepal Width');
+  xlabel ('Sepal Length');
+  ylabel('Sepal Width');
 
 
 
