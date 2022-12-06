@@ -75,22 +75,38 @@ versicolor=	reshape([iris1{2:51,	2:5,	2}],	50,	4);
 virginica	=	reshape([iris1{2:51,	2:5,	3}],	50,	4);
 
 %Task 5
-mean_sepallenght = mean (c_2(:,1));
-mean_sepalwidth  = mean (c_2(:,2));
-mean_petallenght = mean (c_2(:,3));
-mean_petalwidth  = mean (c_2(:,4));
+Sum=zeros(1,4);
+s_v= size(versicolor,1);
 
-variance_sepallenght = var(c_2(:,1));
-variance_sepalwidth  = var(c_2(:,2));
-variance_petallenght = var(c_2(:,3));
-variance_petalwidth  = var(c_2(:,4));
+for i=1:s_v
+  for j=1:4
+		 Sum(j) = Sum(j) + versicolor(i,j);
+end
+end
+Avg=Sum/s_v;
 
-array_mean_and_variance = cell (3,5);
-array_mean_and_variance = ["","SepalLength","SepalWidth","PetalLength","PetalWidth";
-         mean, mean_sepallenght, mean_sepalwidth, mean_petallenght, mean_petalwidth;
-         variance, variance_sepallenght, variance_sepalwidth, variance_petallenght, variance_petalwidth;
-         ]
-printcell(array_mean_and_variance);
+variance_sepallenght = var(versicolor(:,1));
+variance_sepalwidth  = var(versicolor(:,2));
+variance_petallenght = var(versicolor(:,3));
+variance_petalwidth  = var(versicolor(:,4));
+
+Var=[variance_sepallenght,variance_sepalwidth,variance_petallenght,variance_petalwidth];
+
+%building the cell array "myarray" with labels:
+L_col_new=L_col;
+L_col_new(1,1)="Versicolor";
+L_row_new=cell(2,1);
+L_row_new(1,1)= "mean";
+L_row_new(2,1)= "variance";
+
+Avg_L=num2cell(Avg);
+Var_L=num2cell(Var);
+
+myarray= cat(1,Avg_L, Var_L);
+myarray= cat(2,L_row_new, myarray);
+myarray= cat (1,L_col_new, myarray);
+
+printcell(myarray);
 
 %Task 6
 plot(c_1(:,1),c_1(:,2),"bo", c_2(:,1),c_2(:,2),"r*")
