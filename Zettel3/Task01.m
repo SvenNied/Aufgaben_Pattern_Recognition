@@ -108,11 +108,36 @@ myarray= cat (1,L_col_new, myarray);
 
 printcell(myarray);
 
-%Task 6
-plot(c_1(:,1),c_1(:,2),"bo", c_2(:,1),c_2(:,2),"r*")
-  title('Sepal Length vs Sepal Width');
+%Task 6%Task 6
+figure(1)
+  plot(c_1(:,1),c_1(:,2),"bo", c_2(:,1),c_2(:,2),"r*")
+  title('Sepal Length and vs Sepal Width');
   xlabel ('Sepal Length');
   ylabel('Sepal Width');
+  legend("Setosa", "Versicolor");
+
+figure(2)
+  plot(c_1(:,1),c_1(:,2),"bo", c_3(:,1),c_3(:,2),"r*")
+  title('Sepal Length vs Sepal Width');
+  xlabel('Sepal Length');
+  ylabel('Sepal Width');
+  legend("Setosa", "Virginica");
+
+figure(3)
+  plot(c_1(:,1),c_1(:,3),"bo", c_2(:,1),c_2(:,3),"r*")
+  title('Sepal Length vs Petal Length');
+  xlabel ('Sepal Length');
+  ylabel('Petal Length');
+  legend("Setosa", "Versicolor");
+
+
+figure(4)
+  plot(c_1(:,1),c_1(:,4),"bo", c_2(:,1),c_2(:,4),"r*")
+  title('Sepal Length vs Petal Width');
+  xlabel ('Sepal Length');
+  ylabel('Petal Width');
+  legend("Setosa", "Versicolor");
+
 
 
 
