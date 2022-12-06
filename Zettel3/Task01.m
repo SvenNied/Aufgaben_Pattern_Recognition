@@ -108,7 +108,7 @@ myarray= cat (1,L_col_new, myarray);
 
 printcell(myarray);
 
-%Task 6%Task 6
+%Task 6
 figure(1)
   plot(c_1(:,1),c_1(:,2),"bo", c_2(:,1),c_2(:,2),"r*")
   title('Sepal Length and vs Sepal Width');
@@ -130,12 +130,23 @@ figure(3)
   ylabel('Petal Length');
   legend("Setosa", "Versicolor");
 
-
 figure(4)
-  plot(c_1(:,1),c_1(:,4),"bo", c_2(:,1),c_2(:,4),"r*")
-  title('Sepal Length vs Petal Width');
-  xlabel ('Sepal Length');
+  plot(c_1(:,3),c_1(:,4),"bo", c_2(:,3),c_2(:,4),"r*")
+  title('Petal Length vs Petal Width');
+  xlabel ('Petal Length');
   ylabel('Petal Width');
+  legend("Setosa", "Versicolor");
+
+figure(5)
+  setosa_petal_length_width       = c_1(:,1)./c_1(:,2);
+  versicolor_petal_length_width   = c_2(:,1)./c_2(:,2);
+  setosa_setosa_length_width      = c_1(:,3)./c_1(:,4);
+  versicolor_setosa_length_width  = c_2(:,3)./c_2(:,4);
+  plot(setosa_petal_length_width, setosa_setosa_length_width,"bo",
+       versicolor_petal_length_width,versicolor_setosa_length_width,"r*")
+  title('Relation Petal Length/Width vs Relation Sepal Length/Width');
+  xlabel ('Petal Length/Length');
+  ylabel('Sepal Length/Width');
   legend("Setosa", "Versicolor");
 
 
