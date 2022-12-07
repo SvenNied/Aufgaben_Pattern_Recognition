@@ -2,17 +2,17 @@
 
 load ("iris_data.mat")
 load ("iris_species.mat")
-
+% We separate the array in blocks of size 50x4 to get the 
+% specific data of the different species.
 c_1 = meas(1:50,:);
 c_2 = meas(51:100,:);
 c_3 = meas(101:150,:);
-
 iris = cat(3,c_1,c_2,c_3);
+
 
 %Task 2
 
-iris1	=	cell(51,	5,	3);	%	we	need	a	larger	array	for
-                          %	saving	the	additional	labels
+iris1 = cell(51, 5, 3);                       
 
 L_col = cell(1,5);          % cell array containing the labels for the columns
 L_row = cell(50,1);         % cell array containing the labels for the rows
@@ -21,7 +21,6 @@ L_col(1,2) = "SepalLength";
 L_col(1,3) = "SepalWidth";
 L_col(1,4) = "PetalLength";
 L_col(1,5) = "PetalWidth";
-
 for i = 1:50
   L_row(i,1) = strcat("Obs", int2str(i));
 end
@@ -45,46 +44,38 @@ iris1 = cat(3, c_1_L, c_2_L, c_3_L);   %assambeling iris1
 
 
 %Task 3
-
 function printcell(arr)
-dim_x = size(arr,1);
-dim_y = size(arr,2);
-dim_z = size(arr,3);
-
-for k = 1:dim_z
-
-  for j = 1:dim_x
-  line = arr(j,:,k);
-
-    for i = 1:dim_y
-    printf(num2str(line{i})), printf("  ")
+  dim_x = size(arr,1);
+  dim_y = size(arr,2);
+  dim_z = size(arr,3);
+  for k = 1:dim_z
+    for j = 1:dim_x
+      line = arr(j,:,k);
+        for i = 1:dim_y
+          printf(num2str(line{i})), printf("  ")
+        end
+      printf("\n")
     end
-    printf("\n")
   end
-end
-
-
-
 endfunction
 
 
 %Task 4
-
-setosa	=	reshape([iris1{2:51,	2:5,	1}],	50,	4);
-versicolor=	reshape([iris1{2:51,	2:5,	2}],	50,	4);
+setosa		=	reshape([iris1{2:51,	2:5,	1}],	50,	4);
+versicolor	=	reshape([iris1{2:51,	2:5,	2}],	50,	4);
 virginica	=	reshape([iris1{2:51,	2:5,	3}],	50,	4);
 
 %Task 5
 Sum=zeros(1,4);
 s_v= size(versicolor,1);
-
+% Here we calculate the mean.
 for i=1:s_v
   for j=1:4
-		 Sum(j) = Sum(j) + versicolor(i,j);
-end
+      Sum(j) = Sum(j) + versicolor(i,j);
+  end
 end
 Avg=Sum/s_v;
-
+% Calculating the Variance
 variance_sepallenght = var(versicolor(:,1));
 variance_sepalwidth  = var(versicolor(:,2));
 variance_petallenght = var(versicolor(:,3));
@@ -109,6 +100,8 @@ myarray= cat (1,L_col_new, myarray);
 printcell(myarray);
 
 %Task 6
+% The first 4 figures are obviously easily to be separated by a linear decision boundary. So the classes are easy to tell apart.
+% The Sepal Length and Width of Setosa and Versicolor
 figure(1)
   plot(c_1(:,1),c_1(:,2),"bo", c_2(:,1),c_2(:,2),"r*")
   title('Sepal Length and vs Sepal Width');
@@ -116,6 +109,7 @@ figure(1)
   ylabel('Sepal Width');
   legend("Setosa", "Versicolor");
 
+%The Sepal Lenght and Width of Setosa and Viginica
 figure(2)
   plot(c_1(:,1),c_1(:,2),"bo", c_3(:,1),c_3(:,2),"r*")
   title('Sepal Length vs Sepal Width');
@@ -123,6 +117,7 @@ figure(2)
   ylabel('Sepal Width');
   legend("Setosa", "Virginica");
 
+%The Sepal and Petal Length of Setosa and Versicolor
 figure(3)
   plot(c_1(:,1),c_1(:,3),"bo", c_2(:,1),c_2(:,3),"r*")
   title('Sepal Length vs Petal Length');
@@ -130,6 +125,7 @@ figure(3)
   ylabel('Petal Length');
   legend("Setosa", "Versicolor");
 
+%The Petal Length and Width of Setosa and Versicolor
 figure(4)
   plot(c_1(:,3),c_1(:,4),"bo", c_2(:,3),c_2(:,4),"r*")
   title('Petal Length vs Petal Width');
@@ -137,6 +133,10 @@ figure(4)
   ylabel('Petal Width');
   legend("Setosa", "Versicolor");
 
+% In that figure we take a look at the relation between the Petal Length to the Petal Width 
+% in comparison to the relation between Sepal Length and Sepal Width.
+% We take Setosa and Versicolour as Data.
+% Its not easily possible to separate those two classes by a linear decision boundary.
 figure(5)
   setosa_petal_length_width       = c_1(:,1)./c_1(:,2);
   versicolor_petal_length_width   = c_2(:,1)./c_2(:,2);
