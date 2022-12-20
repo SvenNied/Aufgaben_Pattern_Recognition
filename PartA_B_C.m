@@ -55,65 +55,53 @@ d02=sqrt(var(Class0_sensor2));
 d11=sqrt(var(Class1_sensor1));
 d12=sqrt(var(Class1_sensor2));
 
-
-%Declaring min and max for each class and sensor
-min01=min(Class0_sensor1);
-max01=max(Class0_sensor1);
-min02=min(Class0_sensor2);
-max02=max(Class0_sensor2);
-min11=min(Class1_sensor1);
-max11=max(Class1_sensor1);
-min12=min(Class1_sensor2);
-max12=max(Class1_sensor2);
-
-%Declaring interval of values for each class and sensor
-i01 = min01:0.1:max01;
-i02 = min02:0.1:max02;
-i11 = min11:0.1:max11;
-i12 = min12:0.1:max12;
+%Declaring interval of values for each sensor
+i1= -2:0.1:11;
+i2= 10:0.1:24;
 
 %Calculating the maginals for class 0 and 1
-p0_s1 = exp(-0.5*((i01-m01)./d01).^2)./(sqrt(2*pi)*d01);
-p0_s2 = exp(-0.5*((i02-m02)./d02).^2)./(sqrt(2*pi)*d02);
+p0_s1 = exp(-0.5*((i1-m01)./d01).^2)./(sqrt(2*pi)*d01);
+p0_s2 = exp(-0.5*((i2-m02)./d02).^2)./(sqrt(2*pi)*d02);
 p0_joint= p0_s2'*p0_s1;
-p1_s1 = exp(-0.5*((i11-m11)./d11).^2)./(sqrt(2*pi)*d11);
-p1_s2 = exp(-0.5*((i12-m12)./d12).^2)./(sqrt(2*pi)*d12);
+p1_s1 = exp(-0.5*((i1-m11)./d11).^2)./(sqrt(2*pi)*d11);
+p1_s2 = exp(-0.5*((i2-m12)./d12).^2)./(sqrt(2*pi)*d12);
 p1_joint= p1_s2'*p1_s1;
 
 %Plotting the two point distributions of the classes with contours of the two Gaussian distributions
-
-figure (1);
+figure (3);
 plot(Class0_sensor1,Class0_sensor2,"go",Class1_sensor1,Class1_sensor2,"y*")
   title('Sensor1 vs Sensor2');
   xlabel ('Sensor 1');
   ylabel ('Sensor 2');
   legend("Class0","Class1");
   hold on;
-  contour(i01,i02,p0_joint,"blue");
-  contour(i11,i12,p1_joint,"red");
+  contour(i1,i2,p0_joint,"blue");
+  contour(i1,i2,p1_joint,"red");
   hold off;
-  #axis([min_c01-1, max_c01+1 , min_c02-1, max_c02+1]);
-
-figure(2);
-plot(i01,p0_s1);
-
-figure(3);
-plot(i02,p0_s2);
-
-figure(4);
-surf(i01,i02,p0_joint);
-axis([min01-1, max01+1 , min02-1, max02+1]);
 
 
+%Part C
+%Calculating the posterior probabilities of class 0
+p_x_0 = p0_joint;
+p_x_1 = p1_joint;
 
-#i1=[-2:0.1:8];
-#i2=[10:0.1:24];
+p_0_x = p_x_0 ./(p_x_0 + p_x_1);
 
-#figure(2);
-#plot(i1,normpdf(i1,mean_0(1,1),Var_0(1,1)));
-#figure(3);
-#plot(i2,normpdf(i2,mean_0(1,2),Var_0(1,2)));
 
+%Plotting the graphs
+figure(1);
+surf(i1,i2,p0_joint);
+hold on;
+surf(i1,i2,p1_joint);
+hold off;
+
+figure (2);
+contour(i1, i2, p_0_x, [0.5 0.5], 'k-.');
+contourf(i1, i2, p_0_x, [0.5 0.5], 'k-.');
+hold on
+contour(i1,i2,p0_joint,"blue");
+contour(i1,i2,p1_joint,"red");
+hold off;
 
 
 
