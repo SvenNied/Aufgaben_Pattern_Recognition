@@ -1,6 +1,8 @@
 load 'train_labels.mat'
 load 'train_images.mat'
 load 'test_images.mat'
+pkg load image
+pkg load statistics
 
 faceFeats = [];
 nonFaceFeats = [];
@@ -12,7 +14,7 @@ for i = 1:size(images,1)
   I = reshape(I, [112,92]);
   P = labels(i,:);
   P = reshape(P, [112,92]);
-  
+
   B = im2col(padarray(I, [1,1],0, 'both'), [3, 3], 'sliding');
   faceFeatsNew = B(:,logical(P(:)));
   nonFaceFeatsNew = B(:,~logical(P(:)));
@@ -50,10 +52,9 @@ nonFaceFeats = nonFaceFeats';
 eval_image_feat = im2col(padarray(eval_image_res, [1, 1], 0, 'both'), [3, 3], 'sliding');
 
 #Computing the priors
-#p1 = size(faceFeats,2)/(size(faceFeats,2)+size(nonFaceFeats,2));
-#p2 = size(nonfaceFeats,2)//(size(faceFeats,2)+size(nonFaceFeats,2));
-p1 = 0.5;
-p2 = 0.5;
+p1 = size(faceFeats,2)/(size(faceFeats,2)+size(nonFaceFeats,2));
+p2 = size(nonFaceFeats,2)/(size(faceFeats,2)+size(nonFaceFeats,2));
+
 
 #Computing the likelihoods for each image
 p_x_1 = mvnpdf(double(eval_image_feat'), MF, CF);
@@ -70,4 +71,3 @@ classified = reshape(result, size(eval_image_res, 1), size(eval_image_res, 2));
 
 % Plot image
  figure(3), imshow(classified,[]);
-
