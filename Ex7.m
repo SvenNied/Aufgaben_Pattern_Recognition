@@ -1,12 +1,12 @@
 
-
+axis ([-60 60 -10000 10000]);
 fig = 1;
 X = [];
 Maxlies = [];
 Logli = [];
 #Different means and standdev
-for mean = 1:10
-  for standdev = 1:10
+for mean = 1:8
+  for standdev = 1:8
     #Get a 10x10 matrix with random numbers which are normally distributed
     #with mean and standard deviation (standdev)
     m = mean + standdev * randn(10)
@@ -18,7 +18,7 @@ for mean = 1:10
     maxlies = 100 * (1/sum(m))
     #Computing log-likelihood function
     logli = 100 * log(maxlies) - (maxlies * (sum(m)))
-    #vector with 100 settings around maxlies
+    #Vector with 100 settings around maxlies
     vec = []
     for dif = -49:50
       vec(end+1) = maxlies + dif
@@ -28,15 +28,17 @@ for mean = 1:10
       vec(i) = 100 * log(vec(i)) - (vec(i) * (sum(m)))
     endfor
     #Show result
-
     figure(fig);
     x = 1:100;
-    plot (x - 50,vec(x));
+    plot (maxlies - 50 + x,vec(x));
     hold on;
-    plot (x - 50, maxlies);
-    xlabel ("x");
+    #the line at the maximum-likelihood estimate
+    plot([maxlies,maxlies],[-10000,10000]);
+    xlabel ("lambda");
     ylabel ("training data likelihoods");
-    title (x - 50);
+    tit = cstrcat("Plot for mean ",num2str(mean)," and standard deviation ", num2str(standdev));
+    title (tit);
+    hold off;
 
     fig = fig + 1;
     #Put the new values into the matrix X, Maxlies and Logli
